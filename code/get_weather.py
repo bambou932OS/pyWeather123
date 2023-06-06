@@ -1,4 +1,5 @@
 from urllib import parse, request
+import json
 import api_key_parser
 
 WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -22,4 +23,5 @@ def get_weather(location, metric=True):
 
     with request.urlopen(query_url) as response: # Get the response from the URL
         data = response.read()
-        print(data)
+
+    return json.loads(data) # Convert the response to a Python dict
