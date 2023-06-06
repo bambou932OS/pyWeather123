@@ -6,7 +6,6 @@ from argument_parser import get_args # This is a relative import
 from get_weather import get_weather # This is a relative import
 
 def main():
-    api_key = get_api_key()
     args = get_args()
     print(args)
     get_weather(args.location, args.metric)
