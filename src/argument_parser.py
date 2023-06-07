@@ -1,7 +1,8 @@
+import sys
 import argparse
 
 def get_args():
-    parser = argparse.ArgumentParser(description='Get the weather forecast for a given location.')
+    parser = argparse.ArgumentParser(prog=sys.argv[0], description='Get the weather forecast for a given location.')
 
     parser.add_argument('location', metavar='location', type=str, nargs='+', help='The location to get the weather forecast.')
     # Celsius scale, 섭씨 온도 척도

@@ -1,6 +1,6 @@
 from urllib import parse, request
 import json
-import api_key_parser
+from . import api_key_parser # This is a relative import
 
 WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
 
