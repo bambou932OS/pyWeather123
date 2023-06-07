@@ -11,7 +11,13 @@ def build_url(location, metric=True):
     city_name_encoded = parse.quote_plus(city_name)
 
     units = "metric" if metric else "imperial" # This is a ternary operator
-    api_key = api_key_parser.get_api_key() # This is a relative import
+    try: 
+        api_key = api_key_parser.get_api_key()
+        if(len(api_key) == 0):
+            raise Exception
+        
+    except: # api_key.ini 파일이 없거나, api_key.ini 파일이 올바른 형식이 아닐 때
+        api_key_parser.make_api_key_file()
 
     # Build the URL
     url = f'{WEATHER_API_URL}?q={city_name_encoded}&units={units}&appid={api_key}'
