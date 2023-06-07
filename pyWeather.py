@@ -4,6 +4,7 @@ sys.path.append('./code')
 from src.argument_parser import get_args # This is a relative import
 from src.api_key_parser import get_api_key, make_api_key_file # This is a relative import
 from src.get_weather import get_weather # This is a relative import
+from src.print_weather_info import print_weather_info # This is a relative import
 
 def main():
     # api_key.ini 파일을 읽어서 api_key를 가져오는데,
@@ -23,10 +24,7 @@ def main():
     metric = args.metric
     weather_data = get_weather(location, metric)
 
-    print(
-        f'The weather in {weather_data["name"]}({weather_data["sys"]["country"]}) '
-        f'is {weather_data["main"]["temp"]}°{"C" if metric else "F"}.'
-    )
+    print_weather_info(weather_data, metric)
 
 if __name__ == "__main__": # Tells Python to run main() if we run this file directly
     main()

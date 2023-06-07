@@ -6,7 +6,7 @@ This is the solution for you.
 
 PyWeather is a CLI application that gives you the weather of your city in a matter of seconds.
 
-Even if you are far from the *real-window*, you can know the weather from your closest *terminal-*window*.
+Even if you are far from the *real-window*, you can know the weather from your closest *terminal-window*.
 
 ## Installation
 
