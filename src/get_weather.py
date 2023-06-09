@@ -29,40 +29,48 @@ def get_weather(locations, metric=True):
     location_list = [[]]
 
     index = 0
-    
     for location in locations:
         location = ''.join(location) # location is a list of strings, so we need to join them together
         
-        if('/' in location):
+        if('/' in location): # '/'이 들어 있을 때
             location_split = location.split("/")
-            if(location == '/'): # '/'만 입력했을 때
-                location_list.append([])
-                index += 1
 
-            elif(len(location_split) == 2): # '/'기준으로 뒤에 아무것도 없을 때
+            if('' not in location_split): # 띄어쓰기가 없을 때 (ex. busan/seoul)
                 location_list[index].append(location_split[0])
                 location_list.append([])
                 index += 1
+                location_list[index].append(location_split[1])
 
-            elif(len(location_split) == 3): # '/'기준으로 뒤에 문자열이 있을 때
-                location_list[index].append(location_split[0])
-                location_list.append([])
-                index += 1
-                location_list[index].append(location_split[2])
+            else:
+                if(location_split[0] == '' and location_split[1] == ''): # '/' 만 들어왔을 때
+                    location_list.append([])
+                    index += 1
                 
-        else:
+                elif(location_split[0] == ''): # '/'로 시작할 때 (ex. /seoul)
+                    location_list.append([])
+                    index += 1
+                    location_list[index].append(location_split[1])
+                
+                elif(location_split[1] == ''): # '/'로 끝날 때 (ex. busan/)
+                    location_list[index].append(location_split[0])
+                    location_list.append([])
+                    index += 1
+                
+
+        else: # '/'이 없을 때
             location_list[index].append(location)
+
 
     data = []
 
     for location in location_list:
         query_url = build_url(location, metric)
 
-        ###
         try:
             with request.urlopen(query_url) as response: # Get the response from the URL
                 data.append(json.loads(response.read()))
-        except error.HTTPError as e:
+
+        except error.HTTPError as e: # If an HTTPError occurs (e.g., 404 Not Found)
             if(e.code == 400):
                 print('400 Bad Request.')
                 print('If this error occurs periodically, please report an issue')
@@ -82,5 +90,5 @@ def get_weather(locations, metric=True):
             if(e.code//100 == 5): # 5xx Server Error
                 print('Unexpected Error. Check Internet connection and try again later.')
                 raise SystemExit
-
-    return data # Convert the response to a Python dict
+                
+    return data

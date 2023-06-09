@@ -22,6 +22,7 @@ def main():
 
     location = args.location
     metric = args.metric
+
     weather_data = get_weather(location, metric)
 
     for data in weather_data:
