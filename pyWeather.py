@@ -24,7 +24,8 @@ def main():
     metric = args.metric
     weather_data = get_weather(location, metric)
 
-    print_weather_info(weather_data, metric)
+    for data in weather_data:
+        print_weather_info(data, metric)
 
 if __name__ == "__main__": # Tells Python to run main() if we run this file directly
     main()
