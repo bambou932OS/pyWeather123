@@ -1,4 +1,4 @@
-from urllib import parse, request
+from urllib import parse, request, error
 import json
 from . import api_key_parser # This is a relative import
 
